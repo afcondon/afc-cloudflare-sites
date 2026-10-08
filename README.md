@@ -20,6 +20,7 @@ Renamed from `hylograph-sites` on 2026-04-24 to reflect its actual role (it hold
 | `triggerfish/` | trigger-fish.app | `trigger-fish-app` | ✗ (`quartermaster publish`) ⁵ | — |
 | `triggerfish-vetula/` | vetula.trigger-fish.app | `trigger-fish-vetula` | ✗ (`quartermaster publish`) ⁵ | — |
 | `triggerfish-odonus/` | odonus.trigger-fish.app | `trigger-fish-odonus` | ✗ (`quartermaster publish`) ⁵ | — |
+| `triggerfish-elsewhere/` | balistes., selene., limulus., conspicillum., quadrat., www.trigger-fish.app | `trigger-fish-elsewhere` | ✗ (`quartermaster publish`) ⁵ | — |
 | _(external — `music/harmonia/site/`)_ | harmonia.andrewcondon.com (+ harmonia-c8x.pages.dev) | `harmonia` | ✗ (manual wrangler; source in `purescript-harmonia`, not a subdir here) | — |
 | _(external — `code-typography/rebus/demo/`)_ | rebus.hylograph.net ⁴ | `hylograph-rebus` | ✗ (`quartermaster publish`; source in `purescript-rebus`, not a subdir here) | — |
 
@@ -152,3 +153,8 @@ Publish each with `quartermaster publish <dir>/compose.yml <dir>/registry.json`.
 Quartermaster's API token cannot see the trigger-fish.app zone, so its DNS
 step fails; the three CNAMEs (apex and the two subdomains, each to its
 `*.pages.dev`, proxied) were made once through the Cloudflare API.
+The machines that need the installed rig answer at their own names with a
+302 to the apex's "The whole rig" (`triggerfish-elsewhere/`, a `_redirects`
+of one line): their names are custom domains on that project, attached by
+hand beyond the one in its compose.yml, each with its own CNAME. A redirect
+rule would be tidier, but no token here may write the zone's rulesets.
