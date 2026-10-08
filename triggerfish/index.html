@@ -88,6 +88,9 @@
   .app.odonus .model { color: var(--odonus); }
   .app .go { font-family: "IBM Plex Mono", Menlo, monospace; font-size: 13px; color: var(--brass-deep); }
   .app ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; color: var(--muted); font-size: 16px; }
+  .limits { background: var(--paper); border: 1px solid var(--rule); border-left: 3px solid var(--brass); border-radius: 6px; padding: 16px 20px; display: grid; gap: 8px; max-width: 76ch; }
+  .limits ul { margin: 0; padding-left: 20px; display: grid; gap: 3px; color: var(--muted); }
+  .limits b { font-weight: 600; }
   .split { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
   .panel { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 22px; display: grid; gap: 10px; align-content: start; }
   .panel h3 { font-size: 20px; font-weight: 600; margin: 0; }
@@ -133,6 +136,17 @@
   <section id="try">
     <h2>Try it in your browser</h2>
     <p class="sub">Nothing to install. Both play through the browser's own electric piano; in Chrome or Edge, allow MIDI and they play your synths instead.</p>
+    <div class="limits">
+      <p><b>These are a taster, and a small one.</b> Each machine runs on its own here, without the rig that makes them an instrument. In the browser there is:</p>
+      <ul>
+        <li>no Ableton Link: no shared tempo with anything else</li>
+        <li>no machines working together: Odonus can't follow Vetula's key or chords</li>
+        <li>no MIDI out in Safari, which has no Web MIDI</li>
+        <li>no river and no loops: nothing played is kept</li>
+        <li>no Tidal: no Limulus, so Vetula's progressions can't become voices</li>
+      </ul>
+      <p>But it is the same code as the installed rig, page for page, so what you try here is how the machines work.</p>
+    </div>
     <div class="apps">
       <a class="app vetula" href="https://vetula.trigger-fish.app">
         <img class="shot" src="shots/vetula-lattice.jpg" width="1400" height="875" loading="lazy" alt="Vetula's lattice: every chord built on C, by root, from triads up to extended chords">
