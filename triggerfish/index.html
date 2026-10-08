@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Triggerfish</title>
+<meta name="description" content="Triggerfish: sequencers you play by hand, for MIDI and the modular. Try Vetula and Odonus in your browser.">
+<link rel="icon" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    color-scheme: light;
+    --ground: #f6f3ea;
+    --paper: #fffdf7;
+    --ink: #1c1a12;
+    --muted: #6f6857;
+    --rule: #ddd4bd;
+    --brass: #8d7a4a;
+    --brass-deep: #6b5a2e;
+    --odonus: #1f3f94;
+    --vetula: #b0841f;
+    --shadow: 0 1px 2px #0000000d, 0 8px 28px #0000000f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #17150f;
+      --paper: #201d16;
+      --ink: #efe9d8;
+      --muted: #a69d86;
+      --rule: #3a3428;
+      --brass: #c9ad6a;
+      --brass-deep: #e0c98c;
+      --odonus: #8fa8ec;
+      --vetula: #e3b65a;
+      --shadow: 0 1px 2px #00000040, 0 8px 28px #00000055;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #17150f;
+    --paper: #201d16;
+    --ink: #efe9d8;
+    --muted: #a69d86;
+    --rule: #3a3428;
+    --brass: #c9ad6a;
+    --brass-deep: #e0c98c;
+    --odonus: #8fa8ec;
+    --vetula: #e3b65a;
+    --shadow: 0 1px 2px #00000040, 0 8px 28px #00000055;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 80px; display: grid; gap: 56px; }
+  .engrave { font-family: Georgia, serif; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+  header.top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; border-bottom: 1px solid var(--rule); padding-bottom: 14px; }
+  header.top nav { display: flex; gap: 20px; flex-wrap: wrap; }
+  header.top nav a { color: var(--muted); text-decoration: none; }
+  header.top nav a:hover, header.top nav a:focus-visible { color: var(--brass-deep); }
+  .intro { display: grid; gap: 14px; max-width: 64ch; }
+  h1 { font-size: clamp(40px, 6vw, 64px); line-height: 1.02; font-weight: 600; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+  .lede { font-size: 20px; color: var(--muted); margin: 0; }
+  h2 { font-size: 26px; font-weight: 600; margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  a { color: var(--brass-deep); }
+  figure.hero { margin: 0; display: grid; gap: 10px; }
+  .hero-frame { background: #ffffff; border: 1px solid var(--rule); border-radius: 8px; box-shadow: var(--shadow); overflow: hidden; }
+  .hero-frame img { display: block; width: 100%; height: auto; }
+  figcaption { color: var(--muted); font-size: 15px; max-width: 80ch; }
+  section { display: grid; gap: 18px; }
+  .sub { color: var(--muted); max-width: 68ch; }
+  .apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .app { display: grid; grid-template-rows: auto auto 1fr auto; gap: 12px; background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 22px 22px 20px; text-decoration: none; color: inherit; box-shadow: var(--shadow); transition: border-color 140ms ease; }
+  .app:hover, .app:focus-visible { border-color: var(--brass); outline: none; }
+  .app .name { display: flex; align-items: baseline; gap: 12px; }
+  .app h3 { font-size: 24px; font-weight: 600; margin: 0; }
+  .app .model { font-family: Georgia, serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; }
+  .app.vetula .model { color: var(--vetula); }
+  .app.odonus .model { color: var(--odonus); }
+  .app .go { font-family: "IBM Plex Mono", Menlo, monospace; font-size: 13px; color: var(--brass-deep); }
+  .app ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; color: var(--muted); font-size: 16px; }
+  .split { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .panel { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 22px; display: grid; gap: 10px; align-content: start; }
+  .panel h3 { font-size: 20px; font-weight: 600; margin: 0; }
+  .panel p { color: var(--muted); }
+  .shot { display: block; width: 100%; height: auto; border-radius: 5px; border: 1px solid var(--rule); background: #fff; }
+  .machines { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 22px; }
+  .machine { margin: 0; display: grid; gap: 8px; align-content: start; }
+  .machine figcaption b { color: var(--ink); font-weight: 600; }
+  .rig { columns: 2 260px; column-gap: 32px; margin: 0; padding: 0; list-style: none; }
+  .rig li { break-inside: avoid; padding: 8px 0; border-top: 1px solid var(--rule); }
+  .rig b { font-weight: 600; }
+  .rig span { color: var(--muted); }
+  footer { border-top: 1px solid var(--rule); padding-top: 16px; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  code, .mono { font-family: "IBM Plex Mono", Menlo, monospace; font-size: 0.85em; }
+  @media (max-width: 560px) { body { font-size: 16px; } .lede { font-size: 18px; } }
+  @media (prefers-reduced-motion: reduce) { .app { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="engrave">Triggerfish</span>
+    <nav class="engrave" aria-label="Sections">
+      <a href="#try">Try it</a>
+      <a href="#watch">Watch</a>
+      <a href="gazette.html">The Gazette</a>
+      <a href="#installed">The whole rig</a>
+    </nav>
+  </header>
+
+  <div class="intro">
+    <h1>Sequencers you play by hand</h1>
+    <p class="lede">Triggerfish is a set of small machines for making music: one for finding chords and arranging progressions, one for patterns on a grid with several playheads. They send MIDI to your synths, drive a modular, and combine in a live-coding editor that speaks Tidal.</p>
+  </div>
+
+  <figure class="hero">
+    <div class="hero-frame">
+      <img src="hero-chart.png" width="2000" height="912" alt="The Triggerfish dashboard: Vetula, Odonus and Limulus on the left, their notes flowing through the browser and the engine, Architeuthis, to MIDI interfaces, instruments and finally to your ears. Two loops, drawn as starfish, play on the engine.">
+    </div>
+    <figcaption>The dashboard of a running rig. Every machine on the left, every note's path to the right: through the page or the engine, out of an interface, into an instrument, to your ears. The two starfish are loops playing on the engine, one recorded from each machine.</figcaption>
+  </figure>
+
+  <section id="try">
+    <h2>Try it in your browser</h2>
+    <p class="sub">Nothing to install. Both play through the browser's own electric piano; in Chrome or Edge, allow MIDI and they play your synths instead.</p>
+    <div class="apps">
+      <a class="app vetula" href="https://vetula.trigger-fish.app">
+        <img class="shot" src="shots/vetula-lattice.jpg" width="1400" height="875" loading="lazy" alt="Vetula's lattice: every chord built on C, by root, from triads up to extended chords">
+        <div class="name"><h3>Vetula</h3><span class="model">chords</span></div>
+        <ul>
+          <li>Find chords on a lattice built from your key and scale, or in nine banks</li>
+          <li>Hover a chord and press space to hear it; shift-click to take it</li>
+          <li>Arrange the progression on a score: alternatives for every bar, revoicing, a rhythm tapped in</li>
+        </ul>
+        <span class="go">vetula.trigger-fish.app →</span>
+      </a>
+      <a class="app odonus" href="https://odonus.trigger-fish.app">
+        <img class="shot" src="shots/odonus.jpg" width="1400" height="875" loading="lazy" alt="Odonus: four playheads, the notes grid, and per-cell length, ratchet and velocity">
+        <div class="name"><h3>Odonus</h3><span class="model">patterns</span></div>
+        <ul>
+          <li>A grid of notes with several playheads moving through it at once</li>
+          <li>Each playhead a voice of its own, going forward, back or pendulum</li>
+          <li>Press Play, and change the grid while it runs</li>
+        </ul>
+        <span class="go">odonus.trigger-fish.app →</span>
+      </a>
+    </div>
+  </section>
+
+  <figure class="machine">
+    <img class="shot" src="shots/vetula-score.jpg" width="1400" height="875" loading="lazy" alt="Vetula's score: a progression on a grand staff, and under it the chosen bar's substitutes, variations and relatives; Limulus open on the right">
+    <figcaption><b>Arranging, in Vetula.</b> The progression on a score, the chosen bar's alternatives underneath, and Limulus beside it, where the progression becomes voices.</figcaption>
+  </figure>
+
+  <section id="watch" class="split">
+    <div class="panel">
+      <h3>Watch</h3>
+      <p>Short films of the rig in use are on their way: a progression found on the lattice, voiced in Limulus, looped from the river and heard through the modular.</p>
+    </div>
+    <div class="panel">
+      <h3>The Atlantis Gazette</h3>
+      <p>The rig explained as a broadsheet: who's who on the reef, solo or Atlantis, and how a note finds its way to your ears.</p>
+      <p><a href="gazette.html">Read the Gazette →</a></p>
+    </div>
+  </section>
+
+  <section id="installed">
+    <h2>The whole rig</h2>
+    <p class="sub">In the browser you have the two machines on their own. Installed, they join the rest of the reef: the parts below run on your own computer, beside your instruments. An install guide is coming.</p>
+    <div class="machines">
+      <figure class="machine"><img class="shot" src="shots/limulus.jpg" width="1400" height="909" loading="lazy" alt="Limulus, the editor: drums, voices and loops written as Tidal"><figcaption><b>Limulus</b>, the editor: text in, sound out.</figcaption></figure>
+      <figure class="machine"><img class="shot" src="shots/balistes.jpg" width="1400" height="875" loading="lazy" alt="Balistes: Grids-style drum patterns and a sixteen-lane drum sequencer"><figcaption><b>Balistes</b>, drums.</figcaption></figure>
+      <figure class="machine"><img class="shot" src="shots/selene.jpg" width="1400" height="875" loading="lazy" alt="Selene: banks of eight LFOs, euclidean gates and notes, each bank on a module's jacks"><figcaption><b>Selene</b>, signals for the modular.</figcaption></figure>
+      <figure class="machine"><img class="shot" src="shots/conspicillum.jpg" width="1400" height="875" loading="lazy" alt="Conspicillum: a sample read as a one-bar tape by a wandering head, drawn as a ring"><figcaption><b>Conspicillum</b>, a loupe for samples.</figcaption></figure>
+    </div>
+    <ul class="rig">
+      <li><b>Limulus</b> <span>— the editor. Voices, loops and every machine, written in Tidal.</span></li>
+      <li><b>Architeuthis</b> <span>— the engine. TidalCycles on the BEAM, playing every machine on Ableton Link's clock.</span></li>
+      <li><b>The river</b> <span>— everything played, kept. Mark the good bits, loop them, from the page or from Limulus.</span></li>
+      <li><b>The dashboard</b> <span>— the chart above, live: every stream, and what is broken.</span></li>
+      <li><b>Balistes</b> <span>— drums.</span></li>
+      <li><b>Selene</b> <span>— LFOs, clocks and envelopes for the modular, over an ES-9 or FH-2.</span></li>
+      <li><b>Conspicillum</b> <span>— a loupe for samples, as a grain cloud.</span></li>
+      <li><b>Quadrat</b> <span>— samples an instrument across its parameters, and keeps what comes back.</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>Triggerfish · free and open source</span>
+    <span>The engine's Tidal is <a href="https://github.com/afcondon/littorina">Littorina</a>; the editor is <a href="https://github.com/afcondon/limulus">Limulus</a>.</span>
+  </footer>
+</div>
+</body>
+</html>

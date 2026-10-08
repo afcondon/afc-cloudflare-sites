@@ -17,6 +17,9 @@ Renamed from `hylograph-sites` on 2026-04-24 to reflect its actual role (it hold
 | `widgets/` | widgets.hylograph.net ² | `hylograph-widgets` | ✗ (manual wrangler) | #244 |
 | `liquid-purescript/` | liquid-purescript.hylograph.net | `liquid-purescript` | ✗ (`quartermaster publish`) | #247 |
 | `zoo/` | zoo.hylograph.net ³ | `hylograph-zoo` ³ | ✗ (not yet created) | #266 |
+| `triggerfish/` | trigger-fish.app | `trigger-fish-app` | ✗ (`quartermaster publish`) ⁵ | — |
+| `triggerfish-vetula/` | vetula.trigger-fish.app | `trigger-fish-vetula` | ✗ (`quartermaster publish`) ⁵ | — |
+| `triggerfish-odonus/` | odonus.trigger-fish.app | `trigger-fish-odonus` | ✗ (`quartermaster publish`) ⁵ | — |
 | _(external — `music/harmonia/site/`)_ | harmonia.andrewcondon.com (+ harmonia-c8x.pages.dev) | `harmonia` | ✗ (manual wrangler; source in `purescript-harmonia`, not a subdir here) | — |
 | _(external — `code-typography/rebus/demo/`)_ | rebus.hylograph.net ⁴ | `hylograph-rebus` | ✗ (`quartermaster publish`; source in `purescript-rebus`, not a subdir here) | — |
 
@@ -138,3 +141,14 @@ A `deployments` table also records platform/url/target_name per project (`SELECT
 - [hsch-inc](https://github.com/afcondon/hsch-inc) — Source of the three `hylograph-*` sites and `signal-box/`; checked out locally as `polyglot/purescript-polyglot-site`
 - [HeresiarchHalogen](https://github.com/afcondon/HeresiarchHalogen) — Source of `andrewcondon/` and `heresiarch/`
 - [project-marginalia](https://github.com/afcondon/project-marginalia) — Project tracker; cloudflare-sites is #52 under Websites #228
+
+⁵ **trigger-fish.app** (2026-10-08): the Triggerfish machines that make music
+with no rig, one per subdomain, and the apex. `triggerfish-vetula/` and
+`triggerfish-odonus/` are built, never edited: `make static` in
+`music/live-coding/triggerfish` writes them (page as `index.html`, bundle
+minified) and copies the Gazette into `triggerfish/`. The apex page itself
+(`triggerfish/index.html`, the hero chart and `shots/`) is written here.
+Publish each with `quartermaster publish <dir>/compose.yml <dir>/registry.json`.
+Quartermaster's API token cannot see the trigger-fish.app zone, so its DNS
+step fails; the three CNAMEs (apex and the two subdomains, each to its
+`*.pages.dev`, proxied) were made once through the Cloudflare API.

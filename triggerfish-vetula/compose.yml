@@ -1,0 +1,13 @@
+# Bosun x-bosun.static declaration: Vetula, built by `make static` in triggerfish.
+# trigger-fish.app (docs/kb/plans/vetula-one-surface.md). `quartermaster
+# publish` stages a clean artifact and drops this file and registry.json.
+services:
+  trigger-fish-vetula:
+    x-bosun:
+      host: cloudflare
+      probe: http
+      static:
+        channel: cloudflare-pages-wrangler
+        cfProject: trigger-fish-vetula
+        artifactDir: /Users/afc/work/afc-work/cloudflare-sites/triggerfish-vetula
+        url: https://vetula.trigger-fish.app
