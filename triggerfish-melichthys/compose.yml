@@ -1,0 +1,13 @@
+# Bosun x-bosun.static declaration: Melichthys, built by `make static` in triggerfish.
+# trigger-fish.app (docs/kb/plans/vetula-one-surface.md). `quartermaster
+# publish` stages a clean artifact and drops this file and registry.json.
+services:
+  trigger-fish-melichthys:
+    x-bosun:
+      host: cloudflare
+      probe: http
+      static:
+        channel: cloudflare-pages-wrangler
+        cfProject: trigger-fish-melichthys
+        artifactDir: /Users/afc/work/afc-work/cloudflare-sites/triggerfish-melichthys
+        url: https://melichthys.trigger-fish.app
